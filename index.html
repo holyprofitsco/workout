@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weekly Recomp Plan</title>
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Recomp Plan">
 <style>
   :root {
     --bg: #faf7f2;
@@ -92,6 +95,59 @@
   }
   .tag-walk { background: #e4eee6; color: #4a7a5c; }
   .tag-strength { background: var(--accent-light); color: var(--accent); }
+  .day-card.expandable {
+    cursor: pointer;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .day-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .chevron {
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--muted);
+    transition: transform 0.2s ease;
+  }
+  .day-card.expandable.open .chevron {
+    transform: rotate(180deg);
+  }
+  .routine-drop {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .day-card.expandable.open .routine-drop {
+    max-height: 500px;
+  }
+  .routine-list {
+    margin: 14px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    list-style: none;
+  }
+  .routine-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 13px;
+    padding: 6px 0;
+  }
+  .routine-list .move-name {
+    font-weight: 600;
+  }
+  .routine-list .move-sets {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .routine-note {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
   .footer-note {
     margin-top: 26px;
     font-size: 13px;
@@ -125,12 +181,26 @@
   </div>
 </div>
 
-<div class="day-card">
-  <div class="day-label">Mon</div>
-  <div class="day-content">
-    <p class="day-title">Upper Body / Core</p>
-    <p class="day-detail">30 min video · core = planks, dead bugs, bird dogs (stability, not twists)</p>
-    <span class="tag tag-strength">Strength</span>
+<div class="day-card expandable" id="mon-card" onclick="document.getElementById('mon-card').classList.toggle('open')">
+  <div class="day-card-header">
+    <div class="day-label">Mon</div>
+    <div class="day-content">
+      <p class="day-title">Upper Body / Core</p>
+      <p class="day-detail">Tap for routine</p>
+      <span class="tag tag-strength">Strength</span>
+    </div>
+    <span class="chevron">&#9660;</span>
+  </div>
+  <div class="routine-drop">
+    <ul class="routine-list">
+      <li><span class="move-name">Push-ups (knees down if needed)</span><span class="move-sets">3 x 10-12</span></li>
+      <li><span class="move-name">Tricep Kickbacks (hinge)</span><span class="move-sets">3 x 15</span></li>
+      <li><span class="move-name">Plank</span><span class="move-sets">3 x 30-45 sec</span></li>
+      <li><span class="move-name">Superman</span><span class="move-sets">3 x 15</span></li>
+      <li><span class="move-name">Bird Dog</span><span class="move-sets">3 x 10/side</span></li>
+      <li><span class="move-name">Dead Bug</span><span class="move-sets">3 x 10/side</span></li>
+    </ul>
+    <p class="routine-note">Rest 30-45 sec between sets, 60 sec after planks.</p>
   </div>
 </div>
 
@@ -143,12 +213,26 @@
   </div>
 </div>
 
-<div class="day-card">
-  <div class="day-label">Wed</div>
-  <div class="day-content">
-    <p class="day-title">Full Body</p>
-    <p class="day-detail">30 min video · compound moves, lighter overall</p>
-    <span class="tag tag-strength">Strength</span>
+<div class="day-card expandable" id="wed-card" onclick="document.getElementById('wed-card').classList.toggle('open')">
+  <div class="day-card-header">
+    <div class="day-label">Wed</div>
+    <div class="day-content">
+      <p class="day-title">Full Body</p>
+      <p class="day-detail">Tap for routine</p>
+      <span class="tag tag-strength">Strength</span>
+    </div>
+    <span class="chevron">&#9660;</span>
+  </div>
+  <div class="routine-drop">
+    <ul class="routine-list">
+      <li><span class="move-name">Squats</span><span class="move-sets">3 x 12</span></li>
+      <li><span class="move-name">Push-ups</span><span class="move-sets">3 x 10</span></li>
+      <li><span class="move-name">Glute Bridges</span><span class="move-sets">3 x 15</span></li>
+      <li><span class="move-name">Standing Kickbacks</span><span class="move-sets">3 x 12/side</span></li>
+      <li><span class="move-name">Plank</span><span class="move-sets">3 x 30 sec</span></li>
+      <li><span class="move-name">Bird Dog</span><span class="move-sets">3 x 10/side</span></li>
+    </ul>
+    <p class="routine-note">Rest 30-45 sec between sets, 60 sec after planks.</p>
   </div>
 </div>
 
@@ -161,21 +245,49 @@
   </div>
 </div>
 
-<div class="day-card">
-  <div class="day-label">Fri</div>
-  <div class="day-content">
-    <p class="day-title">Glutes</p>
-    <p class="day-detail">30 min video · hip thrusts, bridges, donkey kicks, fire hydrants</p>
-    <span class="tag tag-strength">Strength</span>
+<div class="day-card expandable" id="fri-card" onclick="document.getElementById('fri-card').classList.toggle('open')">
+  <div class="day-card-header">
+    <div class="day-label">Fri</div>
+    <div class="day-content">
+      <p class="day-title">Glutes</p>
+      <p class="day-detail">Tap for routine</p>
+      <span class="tag tag-strength">Strength</span>
+    </div>
+    <span class="chevron">&#9660;</span>
+  </div>
+  <div class="routine-drop">
+    <ul class="routine-list">
+      <li><span class="move-name">Glute Bridges</span><span class="move-sets">3 x 15-20</span></li>
+      <li><span class="move-name">Squats</span><span class="move-sets">3 x 15</span></li>
+      <li><span class="move-name">Standing Kickbacks</span><span class="move-sets">3 x 15/side</span></li>
+      <li><span class="move-name">Fire Hydrants</span><span class="move-sets">3 x 15/side</span></li>
+      <li><span class="move-name">Frog Pumps</span><span class="move-sets">3 x 20</span></li>
+      <li><span class="move-name">Wall Sit + Glute Squeeze</span><span class="move-sets">3 x 20-30 sec</span></li>
+    </ul>
+    <p class="routine-note">Once bridges feel easy, level up to single-leg glute bridges (3 x 10-12/side).</p>
   </div>
 </div>
 
-<div class="day-card">
-  <div class="day-label">Sat</div>
-  <div class="day-content">
-    <p class="day-title">Thighs / Legs</p>
-    <p class="day-detail">30 min video · squats, lunges, curtsy lunges, step-ups</p>
-    <span class="tag tag-strength">Strength</span>
+<div class="day-card expandable" id="sat-card" onclick="document.getElementById('sat-card').classList.toggle('open')">
+  <div class="day-card-header">
+    <div class="day-label">Sat</div>
+    <div class="day-content">
+      <p class="day-title">Thighs / Legs</p>
+      <p class="day-detail">Tap for routine</p>
+      <span class="tag tag-strength">Strength</span>
+    </div>
+    <span class="chevron">&#9660;</span>
+  </div>
+  <div class="routine-drop">
+    <ul class="routine-list">
+      <li><span class="move-name">Squats</span><span class="move-sets">3 x 15</span></li>
+      <li><span class="move-name">Sumo Squats</span><span class="move-sets">3 x 15</span></li>
+      <li><span class="move-name">Single-Leg Hip Hinge</span><span class="move-sets">3 x 12/side</span></li>
+      <li><span class="move-name">Side-Lying Leg Lifts</span><span class="move-sets">3 x 15/side</span></li>
+      <li><span class="move-name">Calf Raises</span><span class="move-sets">3 x 20</span></li>
+      <li><span class="move-name">Wall Sit</span><span class="move-sets">3 x 30 sec</span></li>
+    </ul>
+    <p class="routine-note">Rest 30-45 sec between sets, 60 sec after wall sits.</p>
   </div>
 </div>
 
